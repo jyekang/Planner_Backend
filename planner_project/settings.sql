@@ -1,0 +1,3 @@
+CREATE DATABASE planner;
+CREATE USER planneruser WITH PASSWORD 'planner';
+GRANT ALL PRIVILEGES ON DATABASE planner TO planneruser;
