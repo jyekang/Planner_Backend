@@ -8,6 +8,11 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True
     )
 
+    attendee_id = serializers.PrimaryKeyRelatedField(
+        queryset=Attendee.objects.all(),
+        source='attendee'
+    )
+
     tasks = serializers.HyperlinkedRelatedField(
         view_name='task_detail',
         many=True,
@@ -26,27 +31,10 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True
     )
 
-    event_url = serializers.ModelSerializer.serializer_url_field(
-        view_name='event_detail'
-    )
-
-    attendee_url = serializers.ModelSerializer.serializer_url_field(
-        view_name='attendee_detail'
-    )
-
-    expense_url = serializers.ModelSerializer.serializer_url_field(
-        view_name='expense_detail'
-    )
-
-    task_url = serializers.ModelSerializer.serializer_url_field(
-        view_name='task_detail'
-    )
-
-
 
     class Meta:
         model = Event
-        fields = ('id', 'event_url', 'attendee_url', 'expense_url', 'task_url', 'users', 'event_name', 'location', 'date', 'time', 'budget', 'attendees', 'tasks', 'expenses')
+        fields = ('id', 'attendee_id', 'users', 'event_name', 'location', 'date', 'time', 'budget', 'attendees', 'tasks', 'expenses')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     # name = serializers.HyperlinkedRelatedField(

@@ -36,8 +36,6 @@ class Attendee(models.Model):
     def __str__(self):
         return self.full_name
     
-    class Meta:
-        ordering = ['rsvp', 'full_name']
 
 class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')
@@ -48,11 +46,10 @@ class Task(models.Model):
     def __str__(self):
         return self.description
     
-    class Meta:
-        ordering = ['complete']
 
 class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
+    attendee_id = models.ForeignKey(Attendee, on_delete=models.CASCADE, related_name='attendee', null=True, blank=True)
     event_name = models.CharField(max_length=100)
     location = models.TextField()
     date = models.DateField()
